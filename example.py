@@ -163,15 +163,8 @@ if not file:
 
 parses = parser.parse(file.read())
 
-# for parse in parses:
-#   print(parse)
-#   print()
-
 if len(parses) != 1:
   print("Parse error")
   quit()
 
 evaluate({}, parses[0])
-
-# for rule in Parser.list_rules(parser.rules):
-#   print(rule)

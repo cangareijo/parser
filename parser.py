@@ -12,15 +12,6 @@ class Parse:
     self.nonterminal = nonterminal
     self.children = children
 
-  def __repr__(self):
-    return "Parse(" + repr(self.nonterminal) + ", " + repr(self.children) + ")"
-
-  def __str__(self):
-    if type(self.children) is str:
-      return "{" + self.nonterminal + ", " + str(self.children) + "}"
-    else:
-      return "{" + self.nonterminal + ", " + ", ".join(str(child) for child in self.children) + "}"
-
 class Parser:
   def __init__(self):
     self.tokens = []
@@ -82,9 +73,6 @@ class Parser:
       [(table[symbol]["nonterminal"], [symbol]) for symbol in table if "nonterminal" in table[symbol]])
 
   def parse(self, string):
-    # for symbol in self.precede:
-    #   print(symbol, self.precede[symbol])
-    # print()
     if not self.initialized:
       self.initialize()
     partial_parses = [[]]
@@ -102,10 +90,6 @@ class Parser:
         partial_parse
         for partial_parse in partial_parses
         if len(partial_parse) < 2 or partial_parse[-2].nonterminal in self.precede[partial_parse[-1].nonterminal]]
-      # print(len(partial_parses))
-      # for partial_parse in partial_parses:
-      #   print(", ".join(str(parse) for parse in partial_parse))
-      # print()
     return [partial_parse[0] for partial_parse in partial_parses if len(partial_parse) == 1]
 
   def tokenize(self, string):
